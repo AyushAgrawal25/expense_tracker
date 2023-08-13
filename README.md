@@ -20,4 +20,3 @@ An application which will scan your messages will give you a summary of your exp
 ## Built With
 
 - [Flutter](https://flutter.dev/) - The framework used
-- [Dart](https://dart.dev/) - The language used
