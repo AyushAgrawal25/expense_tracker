@@ -1,16 +1,23 @@
-# expense_tracker
+# Expense Tracker
 
-A new Flutter project.
+An application which will scan your messages will give you a summary of your expenses.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter SDK
+- Android Studio
+- Xcode
+- VS Code
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installing
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Clone the repository
+- Run `flutter pub get` to install dependencies
+- Run `flutter run` to run the app
+
+## Built With
+
+- [Flutter](https://flutter.dev/) - The framework used
+- [Dart](https://dart.dev/) - The language used
