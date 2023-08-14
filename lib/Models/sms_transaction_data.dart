@@ -78,3 +78,36 @@ class SMSTransactionData extends TransactionData {
     };
   }
 }
+
+List<SMSTransactionData> sampleSMSTransactions = [
+  SMSTransactionData(
+    medium: SMSTransactionMedium.upi,
+    smsDate: DateTime.now(),
+    smsBody:
+        'Dear UPI user, Rs.1000.00 has been debited from your account 123456789012 via UPI Ref No 354123456789012. If not done by you, forward this SMS from mobile number registered with your bank to 9223008333 to block your account.',
+    id: 1,
+    referenceNumber: '354123456789012',
+    transactionType: TransactionType.debit,
+    amount: 1000,
+    date: DateTime.now(),
+    receiver: 'Aman\'s Girlfriend',
+    sender: 'Aman Singh',
+    associatedBankName: 'HDFC Bank',
+    associatedAccountNumber: '123456789012',
+  ),
+  SMSTransactionData(
+    medium: SMSTransactionMedium.bankTransfer,
+    smsDate: DateTime.now(),
+    smsBody:
+        'Dear Customer, Rs.1000.00 has been credited to your account 123456724224 on 01/01/2021 12:00:00 via IMPS Ref No 354123245557442. If not done by you, forward this SMS from mobile number registered with your bank to 9223008333 to block your account.',
+    id: 2,
+    referenceNumber: '354123245557442',
+    transactionType: TransactionType.credit,
+    amount: 1000,
+    date: DateTime.now(),
+    receiver: 'Big Bazar',
+    sender: 'Jane Doe',
+    associatedBankName: 'HDFC Bank',
+    associatedAccountNumber: '123456724224',
+  ),
+];
