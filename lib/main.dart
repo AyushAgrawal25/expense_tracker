@@ -4,6 +4,7 @@ import 'package:expense_tracker/Utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:expense_tracker/expense_tile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final SmsQuery _query = SmsQuery();
   List<SmsMessage> _messages = [];
-
+  final Color themeColor = const Color.fromARGB(255, 41, 45, 50);
   @override
   void initState() {
     super.initState();
@@ -33,18 +34,34 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.teal,
       ),
       home: Scaffold(
+        backgroundColor: themeColor,
         appBar: AppBar(
+          backgroundColor: themeColor,
           title: const Text('SMS Inbox Example'),
         ),
-        body: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: Center(
-            child: Text(
-              'Click the refresh button to get SMS messages.',
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-            ),
-          ),
+        /*
+         *previous code
+         */
+        // body: Container(
+        //   decoration:
+        //       const BoxDecoration(color: Color.fromARGB(255, 38, 40, 43)),
+        //   padding: const EdgeInsets.all(10.0),
+        //   child: Center(
+        //     child: Text(
+        //       'Click the refresh button to get SMS messages.',
+        //       style: Theme.of(context).textTheme.headlineSmall,
+        //       textAlign: TextAlign.center,
+        //     ),
+        //   ),
+        // ),
+
+        body: ExpenseTile(
+          type: 'credit',
+          amount: 40,
+          title: 'Bank Transaction',
+          date: DateTime.now(),
+          textColor: Colors.white,
+          backgroundColor: themeColor,
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: onRefreshPressed,
