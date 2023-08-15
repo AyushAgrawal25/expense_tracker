@@ -78,7 +78,12 @@ class _ExpenseTileState extends State<ExpenseTile> {
                             color: AppTheme.textColor,
                             fontSize: 17.5,
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
+                      ),
+                      const SizedBox(
+                        width: 25,
                       ),
 
                       /**
@@ -109,7 +114,7 @@ class _ExpenseTileState extends State<ExpenseTile> {
                         child: Text(
                           DateTimeUtils.getLocaleDate(
                               widget.expense.expenseDate),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppTheme.secondaryTextColor,
                             fontSize: 12.5,
                           ),

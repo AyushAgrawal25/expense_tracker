@@ -47,6 +47,24 @@ class ExpenseData {
     );
   }
 
+  factory ExpenseData.fromSMSTransaction(
+      int expenseId, SMSTransactionData smsTransactionData) {
+    String title =
+        '${SMSTransactionData.getTransactionMediumAsString(smsTransactionData.medium)} - ${smsTransactionData.referenceNumber}';
+    return ExpenseData(
+      id: expenseId,
+      title: title,
+      totalAmount: smsTransactionData.amount,
+      effectiveAmount: smsTransactionData.amount,
+      expenseDate: smsTransactionData.date,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      transactionType: smsTransactionData.transactionType,
+      smsTransaction: smsTransactionData,
+      spentOn: smsTransactionData.receiver,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,
