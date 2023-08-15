@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ExpenseData {
   final int id;
-  final String? title;
+  final String title;
   final String? description;
   final double totalAmount;
   final double effectiveAmount;
@@ -17,7 +17,7 @@ class ExpenseData {
 
   ExpenseData({
     required this.id,
-    this.title,
+    required this.title,
     this.description,
     required this.totalAmount,
     required this.effectiveAmount,
@@ -69,8 +69,8 @@ List<ExpenseData> sampleExpenses = [
     id: 1,
     title: 'Gift',
     description: 'Gift for friend',
-    totalAmount: 1000,
-    effectiveAmount: 1000,
+    totalAmount: 100,
+    effectiveAmount: 100,
     expenseDate: DateTime.now(),
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
@@ -80,10 +80,10 @@ List<ExpenseData> sampleExpenses = [
   ),
   ExpenseData(
     id: 2,
-    title: 'Grocerry',
-    description: 'Grocerry for home',
-    totalAmount: 10000,
-    effectiveAmount: 10000,
+    title: 'Grocery',
+    description: 'Grocery for home',
+    totalAmount: 25,
+    effectiveAmount: 25,
     expenseDate: DateTime.now(),
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
