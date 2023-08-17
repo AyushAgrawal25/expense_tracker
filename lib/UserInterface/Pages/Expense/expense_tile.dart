@@ -2,7 +2,6 @@ import 'package:expense_tracker/Models/expense_data.dart';
 import 'package:expense_tracker/Models/transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseTile extends StatefulWidget {
@@ -126,7 +125,7 @@ class _ExpenseTileState extends State<ExpenseTile> {
                       Text(
                         DateTimeUtils.getLocalTimeIn12HourFormat(
                             widget.expense.expenseDate),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: AppTheme.secondaryTextColor,
                           fontSize: 12.5,
                         ),

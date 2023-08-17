@@ -40,6 +40,8 @@ dependencies:
   logger: ^2.0.1
   logging: ^1.2.0
   clay_containers: ^0.3.2
+  sqfentity: ^2.4.0
+  sqfentity_gen: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +53,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.4.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
