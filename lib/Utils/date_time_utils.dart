@@ -1,49 +1,59 @@
 class DateTimeUtils {
   static final List<String> _months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
+    "January",
+    "February",
+    "March",
+    "April",
     "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
   ];
-  static final Map<int, String> monthsNumber = {
-    1: 'Jan',
-    2: 'Feb',
-    3: 'Mar',
-    4: 'Apr',
-    5: 'May',
-    6: 'Jun',
-    7: 'Jul',
-    8: 'Aug',
-    9: 'Sep',
-    10: 'Oct',
-    11: 'Nov',
-    12: 'Dec',
-  };
+
+  static String? getMonthFullName(int index) {
+    if (index < 1 || index > 12) {
+      return null;
+    }
+
+    return _months[index - 1];
+  }
 
   static String? getMonthName(int index) {
-    return (monthsNumber[index] != null) ? monthsNumber[index] : null;
+    if (index < 1 || index > 12) {
+      return null;
+    }
+
+    return _months[index - 1].substring(0, 3);
   }
 
   static int getMonthIndex(String month) {
-    return _months.indexOf(month) + 1;
+    for (var element in _months) {
+      if (element.toLowerCase().contains(month.toLowerCase())) {
+        return _months.indexOf(element) + 1;
+      }
+    }
+
+    return -1;
   }
 
-  static List<String> get getMonthsList {
+  static List<String> get getMonthFullNameList {
     return _months;
   }
 
-  /**
-   * This function can be used to parse this type of date.
-   * 2019-08-23 09:19:37 PM
-   */
+  static List<String> get getMonthsList {
+    List<String> months = [];
+    for (var element in _months) {
+      months.add(element.substring(0, 3));
+    }
+    return months;
+  }
+
+  /// This function can be used to parse this type of date.
+  /// 2019-08-23 09:19:37 PM
   static DateTime parseDateTime(String dateString) {
     List<String> dateParts = dateString.split(" ");
     List<String> date = dateParts[0].split("-");

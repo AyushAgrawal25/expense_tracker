@@ -3,34 +3,29 @@ import 'package:expense_tracker/Utils/date_time_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/Widgets/Dropdown Button/custom_dropdown.dart';
 
-class TotalExpense extends StatefulWidget {
+class TotalExpense extends StatelessWidget {
   const TotalExpense({
     super.key,
     required this.totalExpense,
-    required this.calcExpense,
+    required this.onMonthChanged,
   });
 
   final double totalExpense;
-  final void Function(String month) calcExpense;
+  final void Function(String month) onMonthChanged;
 
-  @override
-  State<TotalExpense> createState() => _TotalExpenseState();
-}
-
-class _TotalExpenseState extends State<TotalExpense> {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
-        left: 30,
-        right: 30,
-        top: 40,
+        left: 20,
+        right: 20,
+        top: 25,
         bottom: 20,
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
             children: [
               const Text(
                 'Total Spend',
@@ -39,20 +34,22 @@ class _TotalExpenseState extends State<TotalExpense> {
                   fontSize: 18,
                 ),
               ),
-              Text(
-                "₹${widget.totalExpense.toStringAsFixed(2)}",
-                style: const TextStyle(
-                  color: AppTheme.textColor,
-                  fontSize: 38,
-                ),
+              const Spacer(),
+              NeomorphicDropdownButton(
+                options: DateTimeUtils.getMonthsList,
+                initialSelected:
+                    DateTimeUtils.getMonthName(DateTime.now().month)!,
+                onSelect: onMonthChanged,
               ),
             ],
           ),
-          const Spacer(),
-          NeomorphicDropdownButton(
-            options: DateTimeUtils.getMonthsList,
-            initialSelected: DateTimeUtils.getMonthName(DateTime.now().month)!,
-            onSelect: widget.calcExpense,
+          const SizedBox(height: 10),
+          Text(
+            "₹${totalExpense.toStringAsFixed(2)}",
+            style: const TextStyle(
+              color: AppTheme.textColor,
+              fontSize: 38,
+            ),
           ),
         ],
       ),

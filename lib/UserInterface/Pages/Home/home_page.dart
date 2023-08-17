@@ -22,20 +22,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<ExpenseData> expenses = [];
+  List<ExpenseData> allExpenses = [];
+  List<ExpenseData> selectedMonthExpenses = [];
   bool isLoading = false;
   double totalExpense = 0;
 
   @override
   void initState() {
-    extractExpenses();
+    initExpenses();
     super.initState();
+  }
+
+  initExpenses() async {
+    await extractExpenses();
+    onMonthChanged(DateTimeUtils.getMonthName(DateTime.now().month)!);
   }
 
   extractExpenses() async {
     setState(() {
       isLoading = true;
-      expenses = [];
+      allExpenses = [];
       totalExpense = 0;
     });
 
@@ -43,7 +49,7 @@ class _HomePageState extends State<HomePage> {
     logger.i('Total Messages: ${messages.length}');
 
     int id = 0;
-    expenses = [];
+    allExpenses = [];
     for (var msg in messages) {
       if (msg.body == null) {
         continue;
@@ -56,35 +62,17 @@ class _HomePageState extends State<HomePage> {
         id,
       );
       if (smsTransactionData != null) {
-        expenses.add(ExpenseData.fromSMSTransaction(
+        allExpenses.add(ExpenseData.fromSMSTransaction(
           id,
           smsTransactionData,
         ));
         id++;
       }
     }
-    calcMonthExpense(DateTimeUtils.getMonthName(DateTime.now().month)!);
 
-    logger.i('Total Expenses: ${expenses.length}');
+    logger.i('Total Expenses: ${allExpenses.length}');
     setState(() {
       isLoading = false;
-    });
-  }
-
-  void calcMonthExpense(String month) {
-    List<ExpenseData> monthExpense = expenses.where((expense) {
-      return (expense.expenseDate.month ==
-              DateTimeUtils.getMonthIndex(month)) &&
-          (expense.expenseDate.year == DateTime.now().year);
-    }).toList();
-    double sum = 0;
-    for (var expense in monthExpense) {
-      if (expense.transactionType == TransactionType.debit) {
-        sum += expense.totalAmount;
-      }
-    }
-    setState(() {
-      totalExpense = sum;
     });
   }
 
@@ -102,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 TotalExpense(
                   totalExpense: totalExpense,
-                  calcExpense: calcMonthExpense,
+                  onMonthChanged: onMonthChanged,
                 ),
                 Expanded(
                   child: Container(
@@ -110,10 +98,10 @@ class _HomePageState extends State<HomePage> {
                       vertical: 10,
                     ),
                     child: ListView.builder(
-                      itemCount: expenses.length,
+                      itemCount: selectedMonthExpenses.length,
                       itemBuilder: (context, index) {
                         return ExpenseTile(
-                          expense: expenses[index],
+                          expense: selectedMonthExpenses[index],
                         );
                       },
                     ),
@@ -130,5 +118,22 @@ class _HomePageState extends State<HomePage> {
 
   void onRefreshPressed() async {
     extractExpenses();
+  }
+
+  void onMonthChanged(String month) {
+    setState(() {
+      selectedMonthExpenses = [];
+      totalExpense = 0;
+    });
+
+    for (var expense in allExpenses) {
+      if ((DateTimeUtils.getMonthName(expense.expenseDate.month) == month) &&
+          (expense.expenseDate.year == DateTime.now().year)) {
+        selectedMonthExpenses.add(expense);
+        totalExpense += expense.effectiveAmount;
+      }
+    }
+
+    setState(() {});
   }
 }
