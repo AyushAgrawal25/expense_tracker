@@ -13,9 +13,31 @@ class DateTimeUtils {
     "Nov",
     "Dec"
   ];
+  static final Map<int, String> monthsNumber = {
+    1: 'Jan',
+    2: 'Feb',
+    3: 'Mar',
+    4: 'Apr',
+    5: 'May',
+    6: 'Jun',
+    7: 'Jul',
+    8: 'Aug',
+    9: 'Sep',
+    10: 'Oct',
+    11: 'Nov',
+    12: 'Dec',
+  };
+
+  static String? getMonthName(int index) {
+    return (monthsNumber[index] != null) ? monthsNumber[index] : null;
+  }
 
   static int getMonthIndex(String month) {
     return _months.indexOf(month) + 1;
+  }
+
+  static List<String> get getMonthsList {
+    return _months;
   }
 
   /**
