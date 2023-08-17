@@ -67,12 +67,11 @@ class _ExpenseTileState extends State<ExpenseTile> {
                       style: TextStyle(color: primaryTextColor, fontSize: 20),
                     ),
                   ),
-                  Text(
-                    '₹',
-                    style: TextStyle(color: primaryTextColor, fontSize: 22),
+                  const SizedBox(
+                    width: 15,
                   ),
                   Text(
-                    widget.expense.totalAmount.toString(),
+                    '₹ ${widget.expense.totalAmount.toString()}',
                     style: TextStyle(color: primaryTextColor, fontSize: 22),
                   ),
                   Icon(

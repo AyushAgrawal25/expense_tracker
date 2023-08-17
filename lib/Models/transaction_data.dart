@@ -1,17 +1,5 @@
 enum TransactionType { credit, debit }
 
-enum TransactionMedium {
-  upi,
-  netbanking,
-  debitCard,
-  creditCard,
-  wallet,
-  imps,
-  neft,
-  rtgs,
-  unknown
-}
-
 class TransactionData {
   final int id;
   final String referenceNumber;

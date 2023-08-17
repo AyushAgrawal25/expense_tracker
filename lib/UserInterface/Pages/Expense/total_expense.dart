@@ -1,7 +1,7 @@
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/Widgets/Dropdown Button/custom_dropdown.dart';
+import 'package:expense_tracker/Widgets/Dropdowns/custom_dropdown.dart';
 
 class TotalExpense extends StatelessWidget {
   const TotalExpense({
@@ -45,7 +45,7 @@ class TotalExpense extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            "₹${totalExpense.toStringAsFixed(2)}",
+            "₹ ${totalExpense.toStringAsFixed(2)}",
             style: const TextStyle(
               color: AppTheme.textColor,
               fontSize: 38,

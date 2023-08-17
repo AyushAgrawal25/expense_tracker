@@ -1,5 +1,6 @@
 import 'package:expense_tracker/Models/sms_transaction_data.dart';
 import 'package:expense_tracker/Models/transaction_data.dart';
+import 'package:expense_tracker/Models/user_transaction_data.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseData {
@@ -13,7 +14,7 @@ class ExpenseData {
   final DateTime updatedAt;
   final TransactionType transactionType;
   final String? spentOn;
-  final SMSTransactionData? smsTransaction;
+  final TransactionData? transaction;
 
   ExpenseData({
     required this.id,
@@ -26,7 +27,7 @@ class ExpenseData {
     required this.updatedAt,
     required this.transactionType,
     this.spentOn,
-    this.smsTransaction,
+    this.transaction,
   });
 
   factory ExpenseData.fromJson(Map<String, dynamic> json) {
@@ -41,16 +42,32 @@ class ExpenseData {
       updatedAt: DateTime.parse(json['updated_at']),
       transactionType: TransactionType.values[json['transaction_type']],
       spentOn: json['spent_on'],
-      smsTransaction: json['sms_transaction'] != null
-          ? SMSTransactionData.fromJson(json['sms_transaction'])
+      transaction: json['transaction'] != null
+          ? TransactionData.fromJson(json['transaction'])
           : null,
+    );
+  }
+
+  factory ExpenseData.fromTransaction(
+      int expenseId, TransactionData transactionData) {
+    String title = 'Transaction';
+    return ExpenseData(
+      id: expenseId,
+      title: title,
+      totalAmount: transactionData.amount,
+      effectiveAmount: transactionData.amount,
+      expenseDate: transactionData.date,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      transactionType: transactionData.transactionType,
+      transaction: transactionData,
+      spentOn: transactionData.receiver,
     );
   }
 
   factory ExpenseData.fromSMSTransaction(
       int expenseId, SMSTransactionData smsTransactionData) {
-    String title =
-        '${SMSTransactionData.getTransactionMediumAsString(smsTransactionData.medium)} - ${smsTransactionData.referenceNumber}';
+    String title = '${smsTransactionData.formattedMedium} Transaction';
     return ExpenseData(
       id: expenseId,
       title: title,
@@ -60,8 +77,25 @@ class ExpenseData {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       transactionType: smsTransactionData.transactionType,
-      smsTransaction: smsTransactionData,
+      transaction: smsTransactionData,
       spentOn: smsTransactionData.receiver,
+    );
+  }
+
+  factory ExpenseData.fromUserTransaction(
+      int expenseId, UserTransactionData userTransactionData) {
+    String title = '${userTransactionData.formattedMedium} Transaction';
+    return ExpenseData(
+      id: expenseId,
+      title: title,
+      totalAmount: userTransactionData.amount,
+      effectiveAmount: userTransactionData.amount,
+      expenseDate: userTransactionData.date,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      transactionType: userTransactionData.transactionType,
+      transaction: userTransactionData,
+      spentOn: userTransactionData.receiver,
     );
   }
 
@@ -77,7 +111,7 @@ class ExpenseData {
       'updated_at': updatedAt.toIso8601String(),
       'transaction_type': transactionType.index,
       'spent_on': spentOn,
-      'sms_transaction': smsTransaction?.toJson(),
+      'sms_transaction': transaction?.toJson(),
     };
   }
 }
@@ -94,7 +128,7 @@ List<ExpenseData> sampleExpenses = [
     updatedAt: DateTime.now(),
     transactionType: TransactionType.debit,
     spentOn: 'Aman\'s Girlfriend',
-    smsTransaction: sampleSMSTransactions[0],
+    transaction: sampleSMSTransactions[0],
   ),
   ExpenseData(
     id: 2,
@@ -107,6 +141,6 @@ List<ExpenseData> sampleExpenses = [
     updatedAt: DateTime.now(),
     transactionType: TransactionType.credit,
     spentOn: 'Big Bazar',
-    smsTransaction: sampleSMSTransactions[1],
+    transaction: sampleSMSTransactions[1],
   ),
 ];

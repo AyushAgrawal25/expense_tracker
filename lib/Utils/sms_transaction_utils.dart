@@ -85,25 +85,25 @@ class SMSTransactionUtils {
     }
   }
 
-  static TransactionMedium getTransactionMedium(String message) {
+  static SMSTransactionMedium getTransactionMedium(String message) {
     if (message.toLowerCase().contains('upi')) {
-      return TransactionMedium.upi;
+      return SMSTransactionMedium.upi;
     } else if (message.toLowerCase().contains('netbanking')) {
-      return TransactionMedium.netbanking;
+      return SMSTransactionMedium.netbanking;
     } else if (message.toLowerCase().contains('debit card')) {
-      return TransactionMedium.debitCard;
+      return SMSTransactionMedium.debitCard;
     } else if (message.toLowerCase().contains('credit card')) {
-      return TransactionMedium.creditCard;
+      return SMSTransactionMedium.creditCard;
     } else if (message.toLowerCase().contains('wallet')) {
-      return TransactionMedium.wallet;
+      return SMSTransactionMedium.wallet;
     } else if (message.toLowerCase().contains('imps')) {
-      return TransactionMedium.imps;
+      return SMSTransactionMedium.imps;
     } else if (message.toLowerCase().contains('neft')) {
-      return TransactionMedium.imps;
+      return SMSTransactionMedium.imps;
     } else if (message.toLowerCase().contains('rtgs')) {
-      return TransactionMedium.imps;
+      return SMSTransactionMedium.imps;
     } else {
-      return TransactionMedium.unknown;
+      return SMSTransactionMedium.unknown;
     }
   }
 
@@ -118,7 +118,7 @@ class SMSTransactionUtils {
     String? accountNo = getAccountNo(message);
     String? bankName = getBankName(message);
     DateTime? expenseDate = getDate(message);
-    TransactionMedium transactionMedium = getTransactionMedium(message);
+    SMSTransactionMedium transactionMedium = getTransactionMedium(message);
 
     if ((transactionType == null) ||
         (amount == null) ||

@@ -1,7 +1,19 @@
 import 'package:expense_tracker/Models/transaction_data.dart';
 
+enum SMSTransactionMedium {
+  upi,
+  netbanking,
+  debitCard,
+  creditCard,
+  wallet,
+  imps,
+  neft,
+  rtgs,
+  unknown
+}
+
 class SMSTransactionData extends TransactionData {
-  final TransactionMedium medium;
+  final SMSTransactionMedium medium;
   final DateTime smsDate;
   final String smsBody;
 
@@ -68,64 +80,98 @@ class SMSTransactionData extends TransactionData {
     };
   }
 
-  static TransactionMedium getTransactionMediumFromString(String mediumString) {
-    TransactionMedium medium = TransactionMedium.unknown;
-    switch (mediumString) {
-      case 'upi':
-        medium = TransactionMedium.upi;
+  String get formattedMedium {
+    String formattedMedium = '';
+    switch (medium) {
+      case SMSTransactionMedium.upi:
+        formattedMedium = 'UPI';
         break;
-      case 'netbanking':
-        medium = TransactionMedium.netbanking;
+      case SMSTransactionMedium.netbanking:
+        formattedMedium = 'Net Banking';
         break;
-      case 'debitCard':
-        medium = TransactionMedium.debitCard;
+      case SMSTransactionMedium.debitCard:
+        formattedMedium = 'Debit Card';
         break;
-      case 'creditCard':
-        medium = TransactionMedium.creditCard;
+      case SMSTransactionMedium.creditCard:
+        formattedMedium = 'Credit Card';
         break;
-      case 'wallet':
-        medium = TransactionMedium.wallet;
+      case SMSTransactionMedium.wallet:
+        formattedMedium = 'Wallet';
         break;
-      case 'imps':
-        medium = TransactionMedium.imps;
+      case SMSTransactionMedium.imps:
+        formattedMedium = 'IMPS';
         break;
-      case 'neft':
-        medium = TransactionMedium.neft;
+      case SMSTransactionMedium.neft:
+        formattedMedium = 'NEFT';
         break;
-      case 'rtgs':
-        medium = TransactionMedium.rtgs;
+      case SMSTransactionMedium.rtgs:
+        formattedMedium = 'RTGS';
         break;
       default:
-        medium = TransactionMedium.unknown;
+        formattedMedium = 'Unknown';
+    }
+    return formattedMedium;
+  }
+
+  static SMSTransactionMedium getTransactionMediumFromString(
+      String mediumString) {
+    SMSTransactionMedium medium = SMSTransactionMedium.unknown;
+    switch (mediumString) {
+      case 'upi':
+        medium = SMSTransactionMedium.upi;
+        break;
+      case 'netbanking':
+        medium = SMSTransactionMedium.netbanking;
+        break;
+      case 'debitCard':
+        medium = SMSTransactionMedium.debitCard;
+        break;
+      case 'creditCard':
+        medium = SMSTransactionMedium.creditCard;
+        break;
+      case 'wallet':
+        medium = SMSTransactionMedium.wallet;
+        break;
+      case 'imps':
+        medium = SMSTransactionMedium.imps;
+        break;
+      case 'neft':
+        medium = SMSTransactionMedium.neft;
+        break;
+      case 'rtgs':
+        medium = SMSTransactionMedium.rtgs;
+        break;
+      default:
+        medium = SMSTransactionMedium.unknown;
     }
     return medium;
   }
 
-  static String getTransactionMediumAsString(TransactionMedium medium) {
+  static String getTransactionMediumAsString(SMSTransactionMedium medium) {
     String mediumString = '';
     switch (medium) {
-      case TransactionMedium.upi:
+      case SMSTransactionMedium.upi:
         mediumString = 'upi';
         break;
-      case TransactionMedium.netbanking:
+      case SMSTransactionMedium.netbanking:
         mediumString = 'netbanking';
         break;
-      case TransactionMedium.debitCard:
+      case SMSTransactionMedium.debitCard:
         mediumString = 'debitCard';
         break;
-      case TransactionMedium.creditCard:
+      case SMSTransactionMedium.creditCard:
         mediumString = 'creditCard';
         break;
-      case TransactionMedium.wallet:
+      case SMSTransactionMedium.wallet:
         mediumString = 'wallet';
         break;
-      case TransactionMedium.imps:
+      case SMSTransactionMedium.imps:
         mediumString = 'imps';
         break;
-      case TransactionMedium.neft:
+      case SMSTransactionMedium.neft:
         mediumString = 'neft';
         break;
-      case TransactionMedium.rtgs:
+      case SMSTransactionMedium.rtgs:
         mediumString = 'rtgs';
         break;
       default:
@@ -137,7 +183,7 @@ class SMSTransactionData extends TransactionData {
 
 List<SMSTransactionData> sampleSMSTransactions = [
   SMSTransactionData(
-    medium: TransactionMedium.upi,
+    medium: SMSTransactionMedium.upi,
     smsDate: DateTime.now(),
     smsBody:
         'Dear UPI user, Rs.1000.00 has been debited from your account 123456789012 via UPI Ref No 354123456789012. If not done by you, forward this SMS from mobile number registered with your bank to 9223008333 to block your account.',
@@ -152,7 +198,7 @@ List<SMSTransactionData> sampleSMSTransactions = [
     associatedAccountNumber: '123456789012',
   ),
   SMSTransactionData(
-    medium: TransactionMedium.neft,
+    medium: SMSTransactionMedium.neft,
     smsDate: DateTime.now(),
     smsBody:
         'Dear Customer, Rs.1000.00 has been credited to your account 123456724224 on 01/01/2021 12:00:00 via IMPS Ref No 354123245557442. If not done by you, forward this SMS from mobile number registered with your bank to 9223008333 to block your account.',
