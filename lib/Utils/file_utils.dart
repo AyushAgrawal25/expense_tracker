@@ -20,7 +20,7 @@ class FileUtils {
     const externalDirPermission = Permission.storage;
     final permissionStatus = await externalDirPermission.request();
     if (permissionStatus.isGranted) {
-      final file = await File(filePath);
+      final file = File(filePath);
       await file.writeAsString(data);
       return true;
     } else {
