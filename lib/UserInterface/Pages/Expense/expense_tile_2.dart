@@ -19,11 +19,12 @@ class ExpenseTile extends StatefulWidget {
 class _ExpenseTileState extends State<ExpenseTile> {
   @override
   Widget build(BuildContext context) {
-    Color? primaryTextColor = Colors.white;
-    const Color secondaryTextColor = Color.fromARGB(255, 118, 118, 118);
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed('/expensepage');
+        Navigator.of(context).pushNamed(
+          '/expensepage',
+          arguments: widget.expense,
+        );
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -57,9 +58,9 @@ class _ExpenseTileState extends State<ExpenseTile> {
                 ),
                 child: Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.lunch_dining_outlined,
-                      color: primaryTextColor,
+                      color: AppTheme.textColor,
                       size: 20,
                     ),
                     const SizedBox(
@@ -68,7 +69,8 @@ class _ExpenseTileState extends State<ExpenseTile> {
                     Expanded(
                       child: Text(
                         widget.expense.title,
-                        style: TextStyle(color: primaryTextColor, fontSize: 20),
+                        style: const TextStyle(
+                            color: AppTheme.textColor, fontSize: 20),
                       ),
                     ),
                     const SizedBox(
@@ -76,7 +78,8 @@ class _ExpenseTileState extends State<ExpenseTile> {
                     ),
                     Text(
                       '₹ ${widget.expense.totalAmount.toString()}',
-                      style: TextStyle(color: primaryTextColor, fontSize: 22),
+                      style: const TextStyle(
+                          color: AppTheme.textColor, fontSize: 22),
                     ),
                     Icon(
                       (widget.expense.transactionType == TransactionType.credit)
@@ -101,12 +104,12 @@ class _ExpenseTileState extends State<ExpenseTile> {
                     Expanded(
                         child: Text(
                       DateTimeUtils.getLocaleDate(widget.expense.expenseDate),
-                      style: const TextStyle(color: secondaryTextColor),
+                      style: const TextStyle(color: AppTheme.tertiaryTextColor),
                     )),
                     Text(
                       DateTimeUtils.getLocalTimeIn12HourFormat(
                           widget.expense.expenseDate),
-                      style: const TextStyle(color: secondaryTextColor),
+                      style: const TextStyle(color: AppTheme.tertiaryTextColor),
                     ),
                   ],
                 ),
