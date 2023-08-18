@@ -1,7 +1,7 @@
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/Widgets/Dropdowns/custom_dropdown.dart';
+import 'package:expense_tracker/UserInterface/Widgets/Dropdowns/custom_dropdown.dart';
 
 class TotalExpense extends StatelessWidget {
   const TotalExpense({

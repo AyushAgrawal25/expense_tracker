@@ -1,7 +1,6 @@
 import 'package:expense_tracker/Models/sms_transaction_data.dart';
 import 'package:expense_tracker/Models/transaction_data.dart';
 import 'package:expense_tracker/Models/user_transaction_data.dart';
-import 'package:flutter/material.dart';
 
 class ExpenseData {
   final int id;
