@@ -17,8 +17,8 @@ class TotalExpense extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
-        left: 20,
-        right: 20,
+        left: 30,
+        right: 30,
         top: 25,
         bottom: 20,
       ),
@@ -27,12 +27,25 @@ class TotalExpense extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Text(
-                'Total Spend',
-                style: TextStyle(
-                  color: AppTheme.tertiaryTextColor,
-                  fontSize: 18,
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Total Spend',
+                    style: TextStyle(
+                      color: AppTheme.tertiaryTextColor,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    "₹ ${totalExpense.toStringAsFixed(2)}",
+                    style: const TextStyle(
+                      color: AppTheme.textColor,
+                      fontSize: 38,
+                    ),
+                  ),
+                ],
               ),
               const Spacer(),
               NeomorphicDropdownButton(
@@ -44,13 +57,6 @@ class TotalExpense extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Text(
-            "₹ ${totalExpense.toStringAsFixed(2)}",
-            style: const TextStyle(
-              color: AppTheme.textColor,
-              fontSize: 38,
-            ),
-          ),
         ],
       ),
     );
