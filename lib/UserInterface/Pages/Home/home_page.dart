@@ -6,7 +6,7 @@ import 'package:expense_tracker/Utils/date_time_utils.dart';
 import 'package:expense_tracker/Utils/logger_utils.dart';
 import 'package:expense_tracker/Utils/sms_transaction_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:expense_tracker/UserInterface/Pages/Expense/expense_tile_2.dart';
+import 'package:expense_tracker/UserInterface/Pages/Expense/expense_tile.dart';
 import 'package:flutter_sms_inbox/flutter_sms_inbox.dart';
 import 'package:expense_tracker/Utils/sms_utils.dart';
 import 'package:expense_tracker/UserInterface/Pages/Expense/total_expense.dart';
