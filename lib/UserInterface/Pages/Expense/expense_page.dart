@@ -1,11 +1,13 @@
 import 'package:expense_tracker/Models/transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/category_badge.dart';
+import 'package:expense_tracker/UserInterface/Widgets/Texts/info_text.dart';
+import 'package:expense_tracker/UserInterface/Widgets/Texts/neu_text.dart';
 import 'package:flutter/material.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:expense_tracker/Models/sms_transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
 import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/transaction_details_item.dart';
-import 'package:expense_tracker/UserInterface/Widgets/AppBar/navigate_back_appbar.dart';
+import 'package:expense_tracker/UserInterface/Widgets/AppBar/neu_back_appbar.dart';
 import 'package:expense_tracker/Models/expense_data.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
 
@@ -27,29 +29,25 @@ class _ExpensePageState extends State<ExpensePage> {
         widget.expense.transaction as SMSTransactionData;
     return Scaffold(
       backgroundColor: AppTheme.themeColor,
-      appBar: const NavigateBackBar(),
+      appBar: const NeuBackBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              InfoText(
                 widget.expense.title,
-                style: const TextStyle(
-                  color: AppTheme.textColor,
-                  fontSize: 22.5,
-                ),
+                color: AppTheme.textColor,
+                fontSize: 22.5,
               ),
               const SizedBox(
                 height: 30,
               ),
-              const Text(
+              const InfoText(
                 'Effective Amount',
-                style: TextStyle(
-                  color: AppTheme.tertiaryTextColor,
-                  fontSize: 20.5,
-                ),
+                color: AppTheme.tertiaryTextColor,
+                fontSize: 20.5,
               ),
               const SizedBox(
                 height: 12.5,
@@ -65,7 +63,7 @@ class _ExpensePageState extends State<ExpensePage> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ClayText(
+                      NeuText(
                         '₹ ${widget.expense.effectiveAmount.toString()}',
                         emboss: true,
                         size: 25,
@@ -101,12 +99,10 @@ class _ExpensePageState extends State<ExpensePage> {
                   size: 40,
                   color: AppTheme.textColor,
                 ),
-                categoryName: Text(
+                categoryName: InfoText(
                   'Food',
-                  style: TextStyle(
-                    color: AppTheme.tertiaryTextColor,
-                    fontSize: 18.5,
-                  ),
+                  color: AppTheme.tertiaryTextColor,
+                  fontSize: 18.5,
                 ),
               ),
               const SizedBox(
@@ -162,11 +158,13 @@ class _ExpensePageState extends State<ExpensePage> {
               ),
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
-                child: Center(
+                child: const Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 10.0),
-                    child: ClayText(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 10.0,
+                    ),
+                    child: NeuText(
                       "Transaction Info",
                       emboss: true,
                       size: 22.5,
@@ -218,20 +216,16 @@ class _ExpensePageState extends State<ExpensePage> {
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Row(
         children: [
-          Text(
+          InfoText(
             label,
-            style: const TextStyle(
-              color: AppTheme.tertiaryTextColor,
-              fontSize: 17.5,
-            ),
+            color: AppTheme.tertiaryTextColor,
+            fontSize: 17.5,
           ),
           const Spacer(),
-          Text(
+          InfoText(
             value,
-            style: const TextStyle(
-              color: AppTheme.textColor,
-              fontSize: 17.5,
-            ),
+            color: AppTheme.textColor,
+            fontSize: 17.5,
           ),
         ],
       ),

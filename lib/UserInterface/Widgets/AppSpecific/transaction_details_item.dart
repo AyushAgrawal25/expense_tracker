@@ -1,4 +1,5 @@
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
+import 'package:expense_tracker/UserInterface/Widgets/Texts/info_text.dart';
 import 'package:flutter/material.dart';
 
 class TransactionDetailItem extends StatelessWidget {
@@ -21,12 +22,10 @@ class TransactionDetailItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: alignment,
         children: [
-          Text(
+          InfoText(
             label,
-            style: const TextStyle(
-              color: AppTheme.tertiaryTextColor,
-              fontSize: 15,
-            ),
+            fontSize: 15,
+            color: AppTheme.tertiaryTextColor,
             textAlign: (alignment == CrossAxisAlignment.start)
                 ? TextAlign.left
                 : TextAlign.right,
@@ -34,12 +33,10 @@ class TransactionDetailItem extends StatelessWidget {
           const SizedBox(
             height: 3.5,
           ),
-          Text(
+          InfoText(
             value,
-            style: const TextStyle(
-              color: AppTheme.textColor,
-              fontSize: 17.5,
-            ),
+            fontSize: 17.5,
+            color: AppTheme.textColor,
             textAlign: (alignment == CrossAxisAlignment.start)
                 ? TextAlign.left
                 : TextAlign.right,

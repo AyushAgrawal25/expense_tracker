@@ -2,13 +2,13 @@ import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:clay_containers/clay_containers.dart';
 
-class NavigateBackBar extends StatelessWidget implements PreferredSizeWidget {
+class NeuBackBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final Widget? title;
   final List<Widget>? actions;
   final Color? color;
 
-  const NavigateBackBar({
+  const NeuBackBar({
     super.key,
     this.height = 80,
     this.title,
