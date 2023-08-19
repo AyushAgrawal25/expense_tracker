@@ -1,4 +1,12 @@
-enum TransactionType { credit, debit }
+enum TransactionType {
+  credit('credit', 'Credit'),
+  debit('debit', 'Debit');
+
+  const TransactionType(this.value, this.name);
+
+  final String value;
+  final String name;
+}
 
 class TransactionData {
   final int id;

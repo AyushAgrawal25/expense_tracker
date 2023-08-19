@@ -1,5 +1,6 @@
 import 'package:expense_tracker/Models/expense_data.dart';
 import 'package:expense_tracker/Models/transaction_data.dart';
+import 'package:expense_tracker/UserInterface/Pages/Expense/expense_page.dart';
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +22,11 @@ class _ExpenseTileState extends State<ExpenseTile> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(
-          '/expensepage',
-          arguments: widget.expense,
-        );
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ExpensePage(
+            expense: widget.expense,
+          ),
+        ));
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

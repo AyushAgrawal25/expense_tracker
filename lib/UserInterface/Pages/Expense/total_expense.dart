@@ -25,10 +25,11 @@ class TotalExpense extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
@@ -38,21 +39,24 @@ class TotalExpense extends StatelessWidget {
                       fontSize: 18,
                     ),
                   ),
-                  Text(
-                    "₹ ${totalExpense.toStringAsFixed(2)}",
-                    style: const TextStyle(
-                      color: AppTheme.textColor,
-                      fontSize: 38,
-                    ),
+                  const Spacer(),
+                  NeomorphicDropdownButton(
+                    options: DateTimeUtils.getMonthsList,
+                    initialSelected:
+                        DateTimeUtils.getMonthName(DateTime.now().month)!,
+                    onSelect: onMonthChanged,
                   ),
                 ],
               ),
-              const Spacer(),
-              NeomorphicDropdownButton(
-                options: DateTimeUtils.getMonthsList,
-                initialSelected:
-                    DateTimeUtils.getMonthName(DateTime.now().month)!,
-                onSelect: onMonthChanged,
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                "₹ ${totalExpense.toStringAsFixed(2)}",
+                style: const TextStyle(
+                  color: AppTheme.textColor,
+                  fontSize: 38,
+                ),
               ),
             ],
           ),
