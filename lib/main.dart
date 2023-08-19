@@ -1,4 +1,3 @@
-import 'package:expense_tracker/UserInterface/Pages/Expense/expense_page.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/UserInterface/Pages/Home/home_page.dart';
 
@@ -26,9 +25,6 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
-      routes: {
-        '/expensepage': (context) => ExpensePage(),
-      },
       home: const HomePage(),
     );
   }

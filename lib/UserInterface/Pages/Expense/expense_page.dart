@@ -10,7 +10,11 @@ import 'package:expense_tracker/Models/expense_data.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
 
 class ExpensePage extends StatefulWidget {
-  const ExpensePage({super.key});
+  final ExpenseData expense;
+  const ExpensePage({
+    Key? key,
+    required this.expense,
+  }) : super(key: key);
 
   @override
   State<ExpensePage> createState() => _ExpensePageState();
@@ -19,11 +23,8 @@ class ExpensePage extends StatefulWidget {
 class _ExpensePageState extends State<ExpensePage> {
   @override
   Widget build(BuildContext context) {
-    final ExpenseData expense =
-        ModalRoute.of(context)!.settings.arguments as ExpenseData;
-
     final SMSTransactionData smsTransactionDetails =
-        expense.transaction as SMSTransactionData;
+        widget.expense.transaction as SMSTransactionData;
     return Scaffold(
       backgroundColor: AppTheme.themeColor,
       appBar: const NavigateBackBar(),
@@ -34,7 +35,7 @@ class _ExpensePageState extends State<ExpensePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                expense.title,
+                widget.expense.title,
                 style: const TextStyle(
                   color: AppTheme.textColor,
                   fontSize: 22.5,
@@ -51,7 +52,7 @@ class _ExpensePageState extends State<ExpensePage> {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 12.5,
               ),
               ClayContainer(
                 borderRadius: 7,
@@ -65,7 +66,7 @@ class _ExpensePageState extends State<ExpensePage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ClayText(
-                        '₹${expense.effectiveAmount.toString()}',
+                        '₹ ${widget.expense.effectiveAmount.toString()}',
                         emboss: true,
                         size: 25,
                         depth: 10,
@@ -77,13 +78,14 @@ class _ExpensePageState extends State<ExpensePage> {
                         width: 5,
                       ),
                       Icon(
-                        (expense.transactionType == TransactionType.credit)
+                        (widget.expense.transactionType ==
+                                TransactionType.credit)
                             ? Icons.arrow_upward
                             : Icons.arrow_downward,
-                        color:
-                            (expense.transactionType == TransactionType.credit)
-                                ? Colors.green[800]
-                                : Colors.red[800],
+                        color: (widget.expense.transactionType ==
+                                TransactionType.credit)
+                            ? Colors.green[800]
+                            : Colors.red[800],
                         size: 22,
                       ),
                     ],
@@ -113,96 +115,87 @@ class _ExpensePageState extends State<ExpensePage> {
               const SizedBox(
                 height: 20,
               ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'description',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: AppTheme.tertiaryTextColor,
-                    fontSize: 20.5,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  (expense.description == null)
+                child: TransactionDetailItem(
+                  label: 'Description',
+                  value: (widget.expense.description == null)
                       ? 'No Description Available'
-                      : expense.description!,
-                  style: const TextStyle(
-                    color: AppTheme.textColor,
-                    fontSize: 19.5,
-                  ),
+                      : widget.expense.description!,
+                  alignment: CrossAxisAlignment.start,
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              Row(
+                children: [
+                  TransactionDetailItem(
+                    label: 'Expense Date',
+                    value:
+                        DateTimeUtils.getLocaleDate(widget.expense.expenseDate)
+                            .toString(),
+                    alignment: CrossAxisAlignment.start,
+                  ),
+                  const Spacer(),
+                  TransactionDetailItem(
+                    label: 'Spent On',
+                    value: widget.expense.spentOn.toString(),
+                    alignment: CrossAxisAlignment.end,
+                  ),
+                ],
               ),
-              TransactionDetailsRow(labels: const [
-                'Expense Date',
-                'Spent On'
-              ], values: [
-                DateTimeUtils.getLocaleDate(expense.expenseDate).toString(),
-                expense.spentOn.toString()
-              ]),
-              TransactionDetailsRow(labels: const [
-                'Transaction Type',
-                'Total Amount'
-              ], values: [
-                expense.transactionType.name,
-                '₹${expense.totalAmount.toString()}'
-              ]),
+              Row(
+                children: [
+                  TransactionDetailItem(
+                    label: 'Transaction Type',
+                    value: widget.expense.transactionType.name,
+                    alignment: CrossAxisAlignment.start,
+                  ),
+                  const Spacer(),
+                  TransactionDetailItem(
+                    label: 'Total Amount',
+                    value: '₹ ${widget.expense.totalAmount.toString()}',
+                    alignment: CrossAxisAlignment.end,
+                  ),
+                ],
+              ),
               const SizedBox(
                 height: 10,
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                child: ClayContainer(
-                  emboss: true,
-                  width: double.infinity,
-                  borderRadius: 10,
-                  // depth: 10,
-                  spread: 3,
-                  color: AppTheme.themeColor,
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 10.0),
-                      child: ClayText(
-                        "Transaction Info",
-                        emboss: true,
-                        size: 25,
-                        depth: 10,
-                        spread: 5,
-                        textColor: AppTheme.textColor,
-                        color: AppTheme.themeColor,
-                      ),
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 10.0),
+                    child: ClayText(
+                      "Transaction Info",
+                      emboss: true,
+                      size: 22.5,
+                      depth: 10,
+                      spread: 5,
+                      textColor: AppTheme.textColor,
+                      color: AppTheme.themeColor,
                     ),
                   ),
                 ),
               ),
               _getTransactionInfoDetailItem(
-                label: 'medium',
-                value: (smsTransactionDetails).medium.name.toString(),
+                label: 'Medium',
+                value: (smsTransactionDetails).formattedMedium,
               ),
               _getTransactionInfoDetailItem(
-                label: 'reference no.',
+                label: 'Reference No.',
                 value: (smsTransactionDetails).referenceNumber,
               ),
               _getTransactionInfoDetailItem(
-                label: 'amount',
+                label: 'Amount',
                 value: (smsTransactionDetails).amount.toString(),
               ),
               _getTransactionInfoDetailItem(
-                label: 'receiver',
+                label: 'Receiver',
                 value: (smsTransactionDetails).receiver.toString(),
               ),
               _getTransactionInfoDetailItem(
-                label: 'sender',
+                label: 'Sender',
                 value: (smsTransactionDetails).sender.toString(),
               ),
               _getTransactionInfoDetailItem(
@@ -229,7 +222,7 @@ class _ExpensePageState extends State<ExpensePage> {
             label,
             style: const TextStyle(
               color: AppTheme.tertiaryTextColor,
-              fontSize: 19.5,
+              fontSize: 17.5,
             ),
           ),
           const Spacer(),
@@ -237,7 +230,7 @@ class _ExpensePageState extends State<ExpensePage> {
             value,
             style: const TextStyle(
               color: AppTheme.textColor,
-              fontSize: 19.5,
+              fontSize: 17.5,
             ),
           ),
         ],
