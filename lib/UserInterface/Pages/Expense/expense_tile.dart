@@ -2,6 +2,8 @@ import 'package:expense_tracker/Models/expense_data.dart';
 import 'package:expense_tracker/Models/transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Pages/Expense/expense_page.dart';
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
+import 'package:expense_tracker/UserInterface/Widgets/Container/neu_container.dart';
+import 'package:expense_tracker/UserInterface/Widgets/Texts/info_text.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -28,26 +30,8 @@ class _ExpenseTileState extends State<ExpenseTile> {
           ),
         ));
       },
-      child: Container(
+      child: NeuContainer(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: AppTheme.themeColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.white.withOpacity(0.05).withOpacity(0.03),
-              offset: const Offset(-10, -10),
-              spreadRadius: 0,
-              blurRadius: 10,
-            ),
-            BoxShadow(
-              color: Colors.black87.withOpacity(0.3),
-              offset: const Offset(10, 10),
-              spreadRadius: 0,
-              blurRadius: 10,
-            ),
-          ],
-          borderRadius: BorderRadius.circular(10),
-        ),
         child: Container(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
           child: Column(
@@ -69,19 +53,16 @@ class _ExpenseTileState extends State<ExpenseTile> {
                       width: 10,
                     ),
                     Expanded(
-                      child: Text(
+                      child: InfoText(
                         widget.expense.title,
-                        style: const TextStyle(
-                            color: AppTheme.textColor, fontSize: 20),
                       ),
                     ),
                     const SizedBox(
                       width: 15,
                     ),
-                    Text(
+                    InfoText(
                       '₹ ${widget.expense.totalAmount.toString()}',
-                      style: const TextStyle(
-                          color: AppTheme.textColor, fontSize: 22),
+                      fontSize: AppTheme.sh5,
                     ),
                     Icon(
                       (widget.expense.transactionType == TransactionType.credit)
@@ -89,9 +70,9 @@ class _ExpenseTileState extends State<ExpenseTile> {
                           : Icons.arrow_downward,
                       color: (widget.expense.transactionType ==
                               TransactionType.credit)
-                          ? Colors.green[800]
-                          : Colors.red[800],
-                      size: 22,
+                          ? AppTheme.successGreen
+                          : AppTheme.errorRed,
+                      size: AppTheme.sh5,
                     )
                   ],
                 ),
@@ -104,14 +85,16 @@ class _ExpenseTileState extends State<ExpenseTile> {
                 child: Row(
                   children: [
                     Expanded(
-                        child: Text(
+                        child: InfoText(
                       DateTimeUtils.getLocaleDate(widget.expense.expenseDate),
-                      style: const TextStyle(color: AppTheme.tertiaryTextColor),
+                      color: AppTheme.tertiaryTextColor,
+                      fontSize: AppTheme.smallText,
                     )),
-                    Text(
+                    InfoText(
                       DateTimeUtils.getLocalTimeIn12HourFormat(
                           widget.expense.expenseDate),
-                      style: const TextStyle(color: AppTheme.tertiaryTextColor),
+                      color: AppTheme.tertiaryTextColor,
+                      fontSize: AppTheme.smallText,
                     ),
                   ],
                 ),

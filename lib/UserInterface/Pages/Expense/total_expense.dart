@@ -1,4 +1,5 @@
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
+import 'package:expense_tracker/UserInterface/Widgets/Texts/info_text.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/UserInterface/Widgets/Dropdowns/custom_dropdown.dart';
@@ -32,12 +33,10 @@ class TotalExpense extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  const InfoText(
                     'Total Spend',
-                    style: TextStyle(
-                      color: AppTheme.tertiaryTextColor,
-                      fontSize: 18,
-                    ),
+                    color: AppTheme.tertiaryTextColor,
+                    fontSize: AppTheme.mediumText,
                   ),
                   const Spacer(),
                   NeomorphicDropdownButton(
@@ -51,12 +50,10 @@ class TotalExpense extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              Text(
+              InfoText(
                 "₹ ${totalExpense.toStringAsFixed(2)}",
-                style: const TextStyle(
-                  color: AppTheme.textColor,
-                  fontSize: 38,
-                ),
+                color: AppTheme.textColor,
+                fontSize: AppTheme.h4,
               ),
             ],
           ),
