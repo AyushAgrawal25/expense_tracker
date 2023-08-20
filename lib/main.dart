@@ -1,3 +1,4 @@
+import 'package:expense_tracker/UserInterface/Pages/Expense/expense_info_form.dart';
 import 'package:expense_tracker/UserInterface/Pages/Expense/expense_page.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/UserInterface/Pages/Home/home_page.dart';
@@ -24,10 +25,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter SMS Inbox App',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.grey,
       ),
       routes: {
         '/expensepage': (context) => ExpensePage(),
+        '/formpage': (context) => ExpenseInfoForm(),
       },
       home: const HomePage(),
     );

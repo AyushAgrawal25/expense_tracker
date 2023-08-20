@@ -1,28 +1,28 @@
+import 'package:expense_tracker/UserInterface/Widgets/AppBar/navigate_back_appbar.dart';
+import 'package:expense_tracker/UserInterface/Widgets/TextField/text_field.dart';
+import 'package:flutter/material.dart';
 import 'package:expense_tracker/Models/transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/category_badge.dart';
-import 'package:expense_tracker/UserInterface/Widgets/FloatingActionButton/custom_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:clay_containers/clay_containers.dart';
-import 'package:expense_tracker/Models/sms_transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
 import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/transaction_details_item.dart';
-import 'package:expense_tracker/UserInterface/Widgets/AppBar/navigate_back_appbar.dart';
-import 'package:expense_tracker/Models/expense_data.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
+import 'package:expense_tracker/Models/expense_data.dart';
+import 'package:expense_tracker/Models/sms_transaction_data.dart';
 
-class ExpensePage extends StatefulWidget {
-  const ExpensePage({super.key});
+class ExpenseInfoForm extends StatefulWidget {
+  const ExpenseInfoForm({super.key});
 
   @override
-  State<ExpensePage> createState() => _ExpensePageState();
+  State<ExpenseInfoForm> createState() => _ExpenseInfoFormState();
 }
 
-class _ExpensePageState extends State<ExpensePage> {
+class _ExpenseInfoFormState extends State<ExpenseInfoForm> {
   @override
   Widget build(BuildContext context) {
     final ExpenseData expense =
         ModalRoute.of(context)!.settings.arguments as ExpenseData;
-
     final SMSTransactionData smsTransactionDetails =
         expense.transaction as SMSTransactionData;
     return Scaffold(
@@ -34,11 +34,11 @@ class _ExpensePageState extends State<ExpensePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                expense.title,
-                style: const TextStyle(
-                  color: AppTheme.textColor,
-                  fontSize: 22.5,
+              Center(
+                child: IntrinsicWidth(
+                  child: AppThemeTextField(
+                    initText: expense.title.toString(),
+                  ),
                 ),
               ),
               const SizedBox(
@@ -60,19 +60,14 @@ class _ExpensePageState extends State<ExpensePage> {
                 spread: 1,
                 color: AppTheme.themeColor,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ClayText(
-                        '₹${expense.effectiveAmount.toString()}',
-                        emboss: true,
-                        size: 25,
-                        depth: 10,
-                        spread: 5,
-                        textColor: AppTheme.textColor,
-                        color: AppTheme.themeColor,
+                      IntrinsicWidth(
+                        child: AppThemeTextField(
+                          initText: '₹${expense.effectiveAmount.toString()}',
+                        ),
                       ),
                       const SizedBox(
                         width: 5,
@@ -109,10 +104,7 @@ class _ExpensePageState extends State<ExpensePage> {
                 ),
               ),
               const SizedBox(
-                height: 20,
-              ),
-              const SizedBox(
-                height: 20,
+                height: 30,
               ),
               const Align(
                 alignment: Alignment.centerLeft,
@@ -125,35 +117,30 @@ class _ExpensePageState extends State<ExpensePage> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 5,
-              ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  (expense.description == null)
-                      ? 'No Description Available'
-                      : expense.description!,
-                  style: const TextStyle(
-                    color: AppTheme.textColor,
-                    fontSize: 19.5,
+                child: IntrinsicWidth(
+                  child: AppThemeTextField(
+                    initText: (expense.description == null)
+                        ? 'No Description Available'
+                        : expense.description,
                   ),
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
-              TransactionDetailsRow(labels: const [
+              _getTransactionDetailItemRow(labels: const [
                 'Expense Date',
                 'Spent On'
-              ], values: [
+              ], initTexts: [
                 DateTimeUtils.getLocaleDate(expense.expenseDate).toString(),
                 expense.spentOn.toString()
               ]),
-              TransactionDetailsRow(labels: const [
+              _getTransactionDetailItemRow(labels: const [
                 'Transaction Type',
                 'Total Amount'
-              ], values: [
+              ], initTexts: [
                 expense.transactionType.name,
                 '₹${expense.totalAmount.toString()}'
               ]),
@@ -217,25 +204,13 @@ class _ExpensePageState extends State<ExpensePage> {
           ),
         ),
       ),
-      floatingActionButton: AppThemeFloatingActionButton(
-        icon: Icon(
-          Icons.edit,
-          color: AppTheme.successGreen,
-        ),
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            '/formpage',
-            arguments: expense,
-          );
-        },
-      ),
     );
   }
 
   Widget _getTransactionInfoDetailItem(
       {required label, required String value}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         children: [
           Text(
@@ -246,14 +221,50 @@ class _ExpensePageState extends State<ExpensePage> {
             ),
           ),
           const Spacer(),
-          Text(
-            value,
-            style: const TextStyle(
-              color: AppTheme.textColor,
-              fontSize: 19.5,
+          IntrinsicWidth(
+            child: AppThemeTextField(
+              initText: value,
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _getTransactionDetailItemRow(
+      {required List<String> labels, required List<String> initTexts}) {
+    return Row(
+      children: [
+        Expanded(
+            child: _getTransactionDetailItemFormField(
+                label: labels[0], initText: initTexts[0])),
+        Expanded(
+            child: _getTransactionDetailItemFormField(
+                label: labels[1], initText: initTexts[1]))
+      ],
+    );
+  }
+
+  Widget _getTransactionDetailItemFormField(
+      {required String label, required String initText}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Text(
+              label,
+              style: const TextStyle(
+                  color: AppTheme.tertiaryTextColor, fontSize: 19.5),
+            ),
+            IntrinsicWidth(
+              child: AppThemeTextField(
+                initText: initText,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
