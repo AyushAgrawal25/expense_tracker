@@ -24,7 +24,7 @@ class TransactionDetailItem extends StatelessWidget {
         children: [
           InfoText(
             label,
-            fontSize: 15,
+            fontSize: AppTheme.smallText,
             color: AppTheme.tertiaryTextColor,
             textAlign: (alignment == CrossAxisAlignment.start)
                 ? TextAlign.left
@@ -35,7 +35,7 @@ class TransactionDetailItem extends StatelessWidget {
           ),
           InfoText(
             value,
-            fontSize: 17.5,
+            fontSize: AppTheme.mediumText,
             color: AppTheme.textColor,
             textAlign: (alignment == CrossAxisAlignment.start)
                 ? TextAlign.left

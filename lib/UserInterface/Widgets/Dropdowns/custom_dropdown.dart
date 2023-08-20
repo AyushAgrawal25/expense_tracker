@@ -32,7 +32,8 @@ class _NeomorphicDropdownButtonState extends State<NeomorphicDropdownButton> {
     return ClayContainer(
       color: AppTheme.themeColor,
       borderRadius: 10,
-      depth: 5,
+      depth: 10,
+      spread: 5,
       emboss: true,
       child: Container(
         width: 85,

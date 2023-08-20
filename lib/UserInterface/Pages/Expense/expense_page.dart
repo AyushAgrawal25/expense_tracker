@@ -1,9 +1,9 @@
 import 'package:expense_tracker/Models/transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/category_badge.dart';
+import 'package:expense_tracker/UserInterface/Widgets/Container/neu_container.dart';
 import 'package:expense_tracker/UserInterface/Widgets/Texts/info_text.dart';
 import 'package:expense_tracker/UserInterface/Widgets/Texts/neu_text.dart';
 import 'package:flutter/material.dart';
-import 'package:clay_containers/clay_containers.dart';
 import 'package:expense_tracker/Models/sms_transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
 import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/transaction_details_item.dart';
@@ -39,7 +39,7 @@ class _ExpensePageState extends State<ExpensePage> {
               InfoText(
                 widget.expense.title,
                 color: AppTheme.textColor,
-                fontSize: 22.5,
+                fontSize: AppTheme.sh5,
               ),
               const SizedBox(
                 height: 30,
@@ -47,16 +47,15 @@ class _ExpensePageState extends State<ExpensePage> {
               const InfoText(
                 'Effective Amount',
                 color: AppTheme.tertiaryTextColor,
-                fontSize: 20.5,
+                fontSize: AppTheme.mediumText,
               ),
               const SizedBox(
                 height: 12.5,
               ),
-              ClayContainer(
-                borderRadius: 7,
+              NeuContainer(
+                radius: 7,
                 depth: 40,
                 spread: 1,
-                color: AppTheme.themeColor,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 10.0),
@@ -66,7 +65,7 @@ class _ExpensePageState extends State<ExpensePage> {
                       NeuText(
                         '₹ ${widget.expense.effectiveAmount.toString()}',
                         emboss: true,
-                        size: 25,
+                        size: AppTheme.sh4,
                         depth: 10,
                         spread: 5,
                         textColor: AppTheme.textColor,
@@ -82,9 +81,9 @@ class _ExpensePageState extends State<ExpensePage> {
                             : Icons.arrow_downward,
                         color: (widget.expense.transactionType ==
                                 TransactionType.credit)
-                            ? Colors.green[800]
-                            : Colors.red[800],
-                        size: 22,
+                            ? AppTheme.successGreen
+                            : AppTheme.errorRed,
+                        size: AppTheme.sh5,
                       ),
                     ],
                   ),
@@ -102,7 +101,7 @@ class _ExpensePageState extends State<ExpensePage> {
                 categoryName: InfoText(
                   'Food',
                   color: AppTheme.tertiaryTextColor,
-                  fontSize: 18.5,
+                  fontSize: AppTheme.mediumText,
                 ),
               ),
               const SizedBox(
@@ -167,7 +166,7 @@ class _ExpensePageState extends State<ExpensePage> {
                     child: NeuText(
                       "Transaction Info",
                       emboss: true,
-                      size: 22.5,
+                      size: AppTheme.sh5,
                       depth: 10,
                       spread: 5,
                       textColor: AppTheme.textColor,
@@ -219,13 +218,13 @@ class _ExpensePageState extends State<ExpensePage> {
           InfoText(
             label,
             color: AppTheme.tertiaryTextColor,
-            fontSize: 17.5,
+            fontSize: AppTheme.mediumText,
           ),
           const Spacer(),
           InfoText(
             value,
             color: AppTheme.textColor,
-            fontSize: 17.5,
+            fontSize: AppTheme.mediumText,
           ),
         ],
       ),
