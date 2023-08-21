@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter SMS Inbox App',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.grey,
       ),
       home: const HomePage(),
     );

@@ -1,8 +1,10 @@
 import 'package:expense_tracker/Models/transaction_data.dart';
+import 'package:expense_tracker/UserInterface/Pages/Expense/expense_info_form.dart';
 import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/category_badge.dart';
 import 'package:expense_tracker/UserInterface/Widgets/Container/neu_container.dart';
 import 'package:expense_tracker/UserInterface/Widgets/Texts/info_text.dart';
 import 'package:expense_tracker/UserInterface/Widgets/Texts/neu_text.dart';
+import 'package:expense_tracker/UserInterface/Widgets/FloatingActionButton/custom_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/Models/sms_transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
@@ -42,7 +44,7 @@ class _ExpensePageState extends State<ExpensePage> {
                 fontSize: AppTheme.sh5,
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               const InfoText(
                 'Effective Amount',
@@ -200,11 +202,26 @@ class _ExpensePageState extends State<ExpensePage> {
                 value: (smsTransactionDetails).associatedBankName.toString(),
               ),
               const SizedBox(
-                height: 20,
+                height: 80,
               )
             ],
           ),
         ),
+      ),
+      floatingActionButton: AppThemeFloatingActionButton(
+        icon: Icon(
+          Icons.edit,
+          color: AppTheme.successGreen,
+        ),
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) {
+              return ExpenseInfoForm(
+                expense: widget.expense,
+              );
+            },
+          ));
+        },
       ),
     );
   }
