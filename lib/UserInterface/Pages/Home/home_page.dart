@@ -2,6 +2,7 @@ import 'package:expense_tracker/Models/expense_data.dart';
 import 'package:expense_tracker/Models/sms_transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Pages/Loader/loader_page.dart';
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
+import 'package:expense_tracker/UserInterface/Widgets/Texts/info_text.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
 import 'package:expense_tracker/Utils/logger_utils.dart';
 import 'package:expense_tracker/Utils/sms_transaction_utils.dart';
@@ -79,7 +80,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: AppTheme.themeColor,
       appBar: AppBar(
         backgroundColor: AppTheme.themeColor,
-        title: const Text('Expense Tracker'),
+        title: const InfoText('Expense Tracker'),
       ),
       body: (isLoading)
           ? const LoaderPage()
