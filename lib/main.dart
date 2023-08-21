@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-import 'package:expense_tracker/UserInterface/Pages/Expense/expense_info_form.dart';
-import 'package:expense_tracker/UserInterface/Pages/Expense/expense_page.dart';
->>>>>>> ExpenseInfoForm
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/UserInterface/Pages/Home/home_page.dart';
 
@@ -30,13 +25,6 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-<<<<<<< HEAD
-=======
-      routes: {
-        '/expensepage': (context) => ExpensePage(),
-        '/formpage': (context) => ExpenseInfoForm(),
-      },
->>>>>>> ExpenseInfoForm
       home: const HomePage(),
     );
   }

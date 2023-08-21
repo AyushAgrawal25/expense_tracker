@@ -1,4 +1,4 @@
-import 'package:expense_tracker/UserInterface/Widgets/AppBar/navigate_back_appbar.dart';
+import 'package:expense_tracker/UserInterface/Widgets/AppBar/neu_back_appbar.dart';
 import 'package:expense_tracker/UserInterface/Widgets/TextField/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker/Models/transaction_data.dart';
@@ -6,13 +6,14 @@ import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/category_badge
 import 'package:flutter/material.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:expense_tracker/UserInterface/Theme/AppTheme.dart';
-import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/transaction_details_item.dart';
 import 'package:expense_tracker/Utils/date_time_utils.dart';
 import 'package:expense_tracker/Models/expense_data.dart';
 import 'package:expense_tracker/Models/sms_transaction_data.dart';
 
 class ExpenseInfoForm extends StatefulWidget {
-  const ExpenseInfoForm({super.key});
+  const ExpenseInfoForm({super.key, required this.expense});
+
+  final ExpenseData expense;
 
   @override
   State<ExpenseInfoForm> createState() => _ExpenseInfoFormState();
@@ -21,13 +22,11 @@ class ExpenseInfoForm extends StatefulWidget {
 class _ExpenseInfoFormState extends State<ExpenseInfoForm> {
   @override
   Widget build(BuildContext context) {
-    final ExpenseData expense =
-        ModalRoute.of(context)!.settings.arguments as ExpenseData;
     final SMSTransactionData smsTransactionDetails =
-        expense.transaction as SMSTransactionData;
+        widget.expense.transaction as SMSTransactionData;
     return Scaffold(
       backgroundColor: AppTheme.themeColor,
-      appBar: const NavigateBackBar(),
+      appBar: const NeuBackBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         child: SingleChildScrollView(
@@ -37,7 +36,7 @@ class _ExpenseInfoFormState extends State<ExpenseInfoForm> {
               Center(
                 child: IntrinsicWidth(
                   child: AppThemeTextField(
-                    initText: expense.title.toString(),
+                    initText: widget.expense.title.toString(),
                   ),
                 ),
               ),
@@ -66,20 +65,22 @@ class _ExpenseInfoFormState extends State<ExpenseInfoForm> {
                     children: [
                       IntrinsicWidth(
                         child: AppThemeTextField(
-                          initText: '₹${expense.effectiveAmount.toString()}',
+                          initText:
+                              '₹${widget.expense.effectiveAmount.toString()}',
                         ),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
                       Icon(
-                        (expense.transactionType == TransactionType.credit)
+                        (widget.expense.transactionType ==
+                                TransactionType.credit)
                             ? Icons.arrow_upward
                             : Icons.arrow_downward,
-                        color:
-                            (expense.transactionType == TransactionType.credit)
-                                ? AppTheme.successGreen
-                                : AppTheme.errorRed,
+                        color: (widget.expense.transactionType ==
+                                TransactionType.credit)
+                            ? AppTheme.successGreen
+                            : AppTheme.errorRed,
                         size: 22,
                       ),
                     ],
@@ -121,9 +122,9 @@ class _ExpenseInfoFormState extends State<ExpenseInfoForm> {
                 alignment: Alignment.centerLeft,
                 child: IntrinsicWidth(
                   child: AppThemeTextField(
-                    initText: (expense.description == null)
+                    initText: (widget.expense.description == null)
                         ? 'No Description Available'
-                        : expense.description,
+                        : widget.expense.description,
                   ),
                 ),
               ),
@@ -134,15 +135,16 @@ class _ExpenseInfoFormState extends State<ExpenseInfoForm> {
                 'Expense Date',
                 'Spent On'
               ], initTexts: [
-                DateTimeUtils.getLocaleDate(expense.expenseDate).toString(),
-                expense.spentOn.toString()
+                DateTimeUtils.getLocaleDate(widget.expense.expenseDate)
+                    .toString(),
+                widget.expense.spentOn.toString()
               ]),
               _getTransactionDetailItemRow(labels: const [
                 'Transaction Type',
                 'Total Amount'
               ], initTexts: [
-                expense.transactionType.name,
-                '₹${expense.totalAmount.toString()}'
+                widget.expense.transactionType.name,
+                '₹${widget.expense.totalAmount.toString()}'
               ]),
               const SizedBox(
                 height: 10,
