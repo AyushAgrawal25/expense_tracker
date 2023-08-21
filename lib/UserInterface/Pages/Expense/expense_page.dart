@@ -1,7 +1,11 @@
 import 'package:expense_tracker/Models/transaction_data.dart';
 import 'package:expense_tracker/UserInterface/Widgets/AppSpecific/category_badge.dart';
+<<<<<<< HEAD
 import 'package:expense_tracker/UserInterface/Widgets/Texts/info_text.dart';
 import 'package:expense_tracker/UserInterface/Widgets/Texts/neu_text.dart';
+=======
+import 'package:expense_tracker/UserInterface/Widgets/FloatingActionButton/custom_floating_action_button.dart';
+>>>>>>> ExpenseInfoForm
 import 'package:flutter/material.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:expense_tracker/Models/sms_transaction_data.dart';
@@ -42,7 +46,7 @@ class _ExpensePageState extends State<ExpensePage> {
                 fontSize: 22.5,
               ),
               const SizedBox(
-                height: 30,
+                height: 20,
               ),
               const InfoText(
                 'Effective Amount',
@@ -80,10 +84,17 @@ class _ExpensePageState extends State<ExpensePage> {
                                 TransactionType.credit)
                             ? Icons.arrow_upward
                             : Icons.arrow_downward,
+<<<<<<< HEAD
                         color: (widget.expense.transactionType ==
                                 TransactionType.credit)
                             ? Colors.green[800]
                             : Colors.red[800],
+=======
+                        color:
+                            (expense.transactionType == TransactionType.credit)
+                                ? AppTheme.successGreen
+                                : AppTheme.errorRed,
+>>>>>>> ExpenseInfoForm
                         size: 22,
                       ),
                     ],
@@ -201,11 +212,23 @@ class _ExpensePageState extends State<ExpensePage> {
                 value: (smsTransactionDetails).associatedBankName.toString(),
               ),
               const SizedBox(
-                height: 20,
+                height: 80,
               )
             ],
           ),
         ),
+      ),
+      floatingActionButton: AppThemeFloatingActionButton(
+        icon: Icon(
+          Icons.edit,
+          color: AppTheme.successGreen,
+        ),
+        onTap: () {
+          Navigator.of(context).pushNamed(
+            '/formpage',
+            arguments: expense,
+          );
+        },
       ),
     );
   }

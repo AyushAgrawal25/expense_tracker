@@ -48,7 +48,7 @@ class NeuBackBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               alignment: Alignment.centerLeft,
               child: (title != null) ? title! : null,
             ),
